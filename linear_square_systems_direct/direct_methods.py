@@ -55,6 +55,3 @@ def complete_gaussian_elim(in_matrix):
     return out_matrix
 
 
-system = np.array([[0, 0, 0, 1], [1, 0, 1, 1], [1, 0, 1, 0]])
-print(system)
-print(complete_gaussian_elim(system))
