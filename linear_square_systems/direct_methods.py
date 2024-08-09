@@ -3,6 +3,15 @@ import numpy as np
 
 # Given a upper triangular augmented a vector , returns the solution vector if there is unique solution
 def back_substitution(upper, b):
+    if upper.shape[0] != upper.shape[1]:
+        raise ValueError("System is not square")
+
+    if upper.shape[0] != b.shape[0]:
+        raise ValueError("Both inputs must have same number of rows")
+
+    if not np.array_equal(upper, np.triu(upper)):
+        raise ValueError("System is not upper triangular")
+
     m = upper.shape[0]
     augmented = np.column_stack([upper, b])
     sol = np.array([None] * m)
@@ -11,14 +20,14 @@ def back_substitution(upper, b):
         for j in range(m - 1, i, -1):
             total += augmented[i, j] * sol[j]
 
-        x = 1  # Default value
+        x = 0  # Default value
         if augmented[i, i] == 0:
             if total == augmented[i, m]:
-                print("x" + str(i) + " is free parameter. Using 1 as default.")
+                print("x" + str(i) + " is free parameter. Using 0 as default.")
             else:
                 raise ValueError("No solutions")
         else:
-            x = (augmented[i, m] - total ) / augmented[i, i]
+            x = (augmented[i, m] - total) / augmented[i, i]
         sol[i] = float(x)
     return sol.transpose()
 
