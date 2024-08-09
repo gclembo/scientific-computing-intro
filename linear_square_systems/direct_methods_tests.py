@@ -44,6 +44,14 @@ def test_back_substitution():
     sol = np.array([8 / 7, 3 / 7])
     np.testing.assert_almost_equal(direct_methods.back_substitution(a, b), sol, err_msg='Back Sub Test 6 Error')
 
+    a = np.array(
+        [[1, 2],
+         [0, 0]]
+    )
+    b = np.array([1, 0]).transpose()
+    sol = np.array([1, 0])
+    np.testing.assert_almost_equal(direct_methods.back_substitution(a, b), sol, err_msg='Back Sub Test 7 Error')
+
     # check error if not upper triangular
     a = np.array(
         [[1, 2],
