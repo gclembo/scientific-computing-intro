@@ -4,7 +4,7 @@ import numpy as np
 # Given a upper triangular augmented a vector , returns the solution vector if there is unique solution
 def back_substitution(upper, b):
     m = upper.shape[0]
-    augmented = np.array([upper, b])
+    augmented = np.column_stack([upper, b])
     sol = np.array([None] * m)
     for i in range(m - 1, -1, -1):
         total = 0
@@ -18,9 +18,9 @@ def back_substitution(upper, b):
             else:
                 raise ValueError("No solutions")
         else:
-            x = (augmented[i, m] / augmented[i, i]) - total
+            x = (augmented[i, m] - total ) / augmented[i, i]
         sol[i] = float(x)
-    return sol
+    return sol.transpose()
 
 
 # Given a regular augmented, performs regular gaussian elimination. Raises ValueError
