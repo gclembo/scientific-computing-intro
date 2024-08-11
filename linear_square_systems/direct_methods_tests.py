@@ -98,14 +98,14 @@ def test_regular_gaussian_elimination():
     np.testing.assert_almost_equal(direct_methods.regular_gaussian_elim(a), sol, err_msg="Regular GE Test 1 Fail")
 
     a = np.array(
-        [[1, 2, 3],
+        [[2, 2, 3],
          [1, 3, 4],
          [1, 1, 1]]
     )
     sol = np.array(
-        [[1, 2, 3],
-         [0, 1, 1],
-         [0, 0, -1]]
+        [[2, 2, 3],
+         [0, 2, 2.5],
+         [0, 0, -0.5]]
     )
     np.testing.assert_almost_equal(direct_methods.regular_gaussian_elim(a), sol, err_msg="Regular GE Test 2 Fail")
 
@@ -153,10 +153,86 @@ def test_regular_gaussian_elimination():
     )
     np.testing.assert_raises(ValueError, direct_methods.regular_gaussian_elim, a)
 
+def test_complete_gaussian_elimination():
+    a = np.array(
+        [[2, 2, 3],
+         [1, 1, 1],
+         [1, 1, 1]]
+    )
+    sol = np.array(
+        [[2, 2, 3],
+         [0, 0, -0.5],
+         [0, 0, 0]]
+    )
+    np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 1 Fail")
+
+    a = np.array(
+        [[1, 2],
+         [1, 3],
+         [1, 1]]
+    )
+    sol = np.array(
+        [[1, 2],
+         [0, 1],
+         [0, 0]]
+    )
+    np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 2 Fail")
+
+    a = np.array(
+        [[1, 2, 3, 4],
+         [1, 3, 4, 5],
+         [1, 1, 1, 1]]
+    )
+    sol = np.array(
+        [[1, 2, 3, 4],
+         [0, 1, 1, 1],
+         [0, 0, -1, -2]]
+    )
+    np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 3 Fail")
+
+    a = np.array(
+        [[1, 1, 1],
+         [1, 1, 1],
+         [1, 2, 3]]
+    )
+    sol = np.array(
+        [[1, 1, 1],
+         [0, 1, 2],
+         [0, 0, 0]]
+    )
+    np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 4 Fail")
+
+    a = np.array(
+        [[1, 1, 1],
+         [1, 1, 1],
+         [1, 1, 1]]
+    )
+    sol = np.array(
+        [[1, 1, 1],
+         [0, 0, 0],
+         [0, 0, 0]]
+    )
+    np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 5 Fail")
+
+    a = np.array(
+        [[1, 1, 2, 1, 1],
+         [1, 1, 1, 3, 2],
+         [1, 1, 2, 1, 3],
+         [1, 1, 1, 1, 4]]
+    )
+    a = np.array(
+        [[1, 1, 2, 1, 1],
+         [0, 0, -1, 0, 3],
+         [0, 0, 0, 2, -2],
+         [0, 0, 0, 0, 2]]
+    )
+    np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 6 Fail")
 
 if __name__ == "__main__":
     test_back_substitution()
     print("Back sub passed")
     test_regular_gaussian_elimination()
     print("Regular GE passed")
+    test_complete_gaussian_elimination()
+    print("Complete GE passed")
     print("Tests Passed!")
