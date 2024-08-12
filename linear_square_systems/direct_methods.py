@@ -11,7 +11,7 @@ def back_substitution(upper: np.array, b: np.array) -> np.array:
         raise ValueError("System is not upper triangular")
 
     m = upper.shape[0]
-    augmented = np.column_stack([upper, b])
+    augmented = np.column_stack([upper, b]).astype(np.float32)
     sol = np.array([None] * m)
     for i in range(m - 1, -1, -1):
         total = 0
@@ -30,36 +30,43 @@ def back_substitution(upper: np.array, b: np.array) -> np.array:
     return sol.transpose()
 
 
-# Given a regular augmented, performs regular gaussian elimination. Raises ValueError
+# Given a regular matrix, performs regular gaussian elimination. Raises ValueError
 #  if given augmented is not regular
 def regular_gaussian_elim(input_matrix: np.array) -> np.array:
     m = input_matrix.shape[0]
-    reduced = input_matrix.copy()
+    reduced = input_matrix.astype(np.float32)
     for i in range(m - 1):
         if reduced[i][i] == 0:
             raise ValueError("Given matrix is not regular")
 
         for j in range(i + 1, m):
             coef = reduced[j][i] / reduced[i][i]
-            reduced[j] = reduced[j] - coef * reduced[i]
+            reduced[j] = reduced[j] - (coef * reduced[i].astype(np.float32))
     return reduced
+
 
 # Given a matrix, performs regular gaussian elimination
 def complete_gaussian_elim(input_matrix: np.array) -> np.array:
-    m = input_matrix.shape[0]
-    reduced = input_matrix.copy()
-    for i in range(m - 1):
-        row = i + 1
-        while reduced[i][i] == 0 and row != m:
-            reduced[[i, row]] = reduced[[row, i]]
-            row += 1
+    m, n = input_matrix.shape
+    reduced = input_matrix.astype(np.float32)
+    curr_row = 0
+    curr_col = 0
+    while curr_row < m and curr_col < n:
+        swap_row = curr_row + 1
+        while reduced[curr_row][curr_col] == 0 and swap_row != m:
+            reduced[[curr_row, swap_row]] = reduced[[swap_row, curr_row]]
+            swap_row += 1
 
-        if reduced[i][i] == 0:
+        if reduced[curr_row][curr_col] == 0:
+            curr_col += 1
             continue
 
-        for j in range(i + 1, m):
-            coef = reduced[j][i] / reduced[i][i]
-            reduced[j] = reduced[j] - coef * reduced[i]
+
+        for j in range(curr_row + 1, m):
+            coef = reduced[j][curr_col] / reduced[curr_row][curr_col]
+            reduced[j] = reduced[j] - coef * reduced[curr_row]
+        curr_row += 1
+        curr_col += 1
     return reduced
 
 
@@ -68,7 +75,7 @@ def complete_gaussian_elim(input_matrix: np.array) -> np.array:
 def lu_decomposition(input_matrix: np.array) -> np.array:
     m = input_matrix.shape[0]
     l = np.eye(m)
-    u = input_matrix.copy()
+    u = input_matrix.astype(np.float32)
     for i in range(m - 1):
         if u[i][i] == 0:
             raise ValueError("Given matrix is not regular")
