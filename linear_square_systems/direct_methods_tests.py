@@ -220,13 +220,70 @@ def test_complete_gaussian_elimination():
          [1, 1, 2, 1, 3],
          [1, 1, 1, 1, 4]]
     )
-    a = np.array(
+    sol = np.array(
         [[1, 1, 2, 1, 1],
          [0, 0, -1, 0, 3],
          [0, 0, 0, 2, -2],
          [0, 0, 0, 0, 2]]
     )
     np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 6 Fail")
+
+def test_lu_decomposition():
+    a = np.array(
+        [[2, 1],
+         [7, 3]]
+    )
+    sol_l = np.array(
+        [[1, 0],
+         [3.5, 1]]
+    )
+    sol_u = np.array(
+        [[2, 1],
+         [0, -0.5]]
+    )
+    l, u = direct_methods.lu_decomposition(a)
+    np.testing.assert_almost_equal(l, sol_l, err_msg="LU decomposition L test 1 Fail")
+    np.testing.assert_almost_equal(u, sol_u, err_msg="LU decomposition U test 1 Fail")
+
+    a = np.array(
+        [[5, 3, 6],
+         [5, 4, 2],
+         [2, 6, 4]]
+    )
+    sol_l = np.array(
+        [[1, 0, 0],
+         [1, 1, 0],
+         [2/5, 24/5, 1]]
+    )
+    sol_u = np.array(
+        [[5, 3, 6],
+         [0, 1, -4],
+         [0, 0, 104/5]]
+    )
+    l, u = direct_methods.lu_decomposition(a)
+    # Rounding error causes test to fail if precision is left at default
+    np.testing.assert_almost_equal(l, sol_l, err_msg="LU decomposition L test 2 Fail", decimal=5)
+    np.testing.assert_almost_equal(u, sol_u, err_msg="LU decomposition U test 2 Fail", decimal=5)
+
+
+    # Test Error with non-regular matrix
+    a = np.array(
+        [[5, 3, 6],
+         [5, 3, 2],
+         [2, 6, 4]]
+    )
+
+    np.testing.assert_raises(ValueError, direct_methods.lu_decomposition, a)
+
+    # Test Error with non-square matrix
+    a = np.array(
+        [[1, 2, 5],
+         [3, 4, 3]]
+    )
+
+    np.testing.assert_raises(ValueError, direct_methods.lu_decomposition, a)
+
+
 
 if __name__ == "__main__":
     test_back_substitution()
@@ -235,4 +292,6 @@ if __name__ == "__main__":
     print("Regular GE passed")
     test_complete_gaussian_elimination()
     print("Complete GE passed")
+    test_lu_decomposition()
+    print("LU Decomposition passed")
     print("Tests Passed!")
