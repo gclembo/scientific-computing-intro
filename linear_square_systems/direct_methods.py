@@ -1,8 +1,19 @@
 import numpy as np
 
 
-# Given a upper triangular matrix a vector , returns the solution vector if there is unique solution
 def back_substitution(upper: np.array, b: np.array) -> np.array:
+    """
+    Given an upper triangular matrix a vector to augment to solve the system, returns the
+    solution vector. If a free variable is encountered, 0 is the value used.
+
+    :param upper: Square upper triangular matrix for a linear system.
+    :param b: vector to augment and use for solving the system.
+    :return: solution vector to system
+
+    :raises ValueError: If the given upper triangular matrix is not square, if the upper triangular
+    matrix and the vector to augment have a different number of rows, if the given upper triangular
+    matrix is not upper triangular, or if there are no solutions to the system.
+    """
     if upper.shape[0] != upper.shape[1]:
         raise ValueError("System is not square")
     if upper.shape[0] != b.shape[0]:
@@ -33,6 +44,12 @@ def back_substitution(upper: np.array, b: np.array) -> np.array:
 # Given a regular matrix, performs regular gaussian elimination. Raises ValueError
 #  if given matrix is not regular
 def regular_gaussian_elim(input_matrix: np.array) -> np.array:
+    """
+    Given a regular matrix, performs regular gaussian elimination and returns the reduced matrix.
+    :param input_matrix: A regular matrix to reduce using regular gaussian elimination.
+    :return: Reduced matrix
+    :raises ValueError: If the given matrix is not regular
+    """
     m = input_matrix.shape[0]
     reduced = input_matrix.astype(np.float32)
     for i in range(m - 1):
@@ -44,9 +61,12 @@ def regular_gaussian_elim(input_matrix: np.array) -> np.array:
             reduced[j] = reduced[j] - (coef * reduced[i].astype(np.float32))
     return reduced
 
-
-# Given a matrix, performs regular gaussian elimination
 def complete_gaussian_elim(input_matrix: np.array) -> np.array:
+    """
+    Given a matrix, performs complete Gaussian elimination and returns reduced matrix.
+    :param input_matrix: Matrix to reduce with complete Gaussian elimination.
+    :return: Reduced matrix.
+    """
     m, n = input_matrix.shape
     reduced = input_matrix.astype(np.float32)
     curr_row = 0
@@ -72,6 +92,13 @@ def complete_gaussian_elim(input_matrix: np.array) -> np.array:
 # Given a regular square matrix, decomposes the matrix into lower and upper
 #  triangular matrices and returns the lower and upper matrices.
 def lu_decomposition(input_matrix: np.array) -> np.array:
+    """
+    Given a regular square matrix, decomposes the matrix into lower and upper triangular matrices
+    and returns these matrices.
+    :param input_matrix: Regular matrix to decompose.
+    :returns: lower and upper matrices decomposed from the input matrix.
+    :raises ValueError: If the given matrix is not square or if it is not regular.
+    """
     if input_matrix.shape[0] != input_matrix.shape[1]:
         raise ValueError("Given matrix is not square")
 
