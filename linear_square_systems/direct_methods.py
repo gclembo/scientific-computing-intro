@@ -72,6 +72,9 @@ def complete_gaussian_elim(input_matrix: np.array) -> np.array:
 # Given a regular square matrix, decomposes the matrix into lower and upper
 #  triangular matrices and returns the lower and upper matrices.
 def lu_decomposition(input_matrix: np.array) -> np.array:
+    if input_matrix.shape[0] != input_matrix.shape[1]:
+        raise ValueError("Given matrix is not square")
+
     m = input_matrix.shape[0]
     l = np.eye(m)
     u = input_matrix.astype(np.float32)
