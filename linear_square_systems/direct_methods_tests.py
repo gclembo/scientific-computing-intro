@@ -10,7 +10,7 @@ def test_back_substitution():
     )
     b = np.array([1, 2, 3]).transpose()
     sol = np.array([1, 2, 3])
-    np.testing.assert_almost_equal(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 1 Error")
+    np.testing.assert_allclose(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 1 Error")
 
     a = np.array(
         [[1, 1, 1],
@@ -18,7 +18,7 @@ def test_back_substitution():
          [0, 0, 1]]
     )
     sol = np.array([-1, -1, 3])
-    np.testing.assert_almost_equal(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 2 Error")
+    np.testing.assert_allclose(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 2 Error")
 
     a = np.array([
         [3, 2, 1],
@@ -26,15 +26,15 @@ def test_back_substitution():
         [0, 0, 3]]
     )
     sol = np.array([0, 0, 1])
-    np.testing.assert_almost_equal(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 3 Error")
+    np.testing.assert_allclose(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 3 Error")
 
     b = np.array([0, 0, 0]).transpose()
     sol = np.array([0, 0, 0])
-    np.testing.assert_almost_equal(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 4 Error")
+    np.testing.assert_allclose(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 4 Error")
 
     b = np.array([1, 1, 1]).transpose()
     sol = np.array([4 / 27, 1 / 9, 1 / 3])
-    np.testing.assert_almost_equal(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 5 Error")
+    np.testing.assert_allclose(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 5 Error")
 
     a = np.array(
         [[1, 2],
@@ -42,15 +42,15 @@ def test_back_substitution():
     )
     b = np.array([2, 3]).transpose()
     sol = np.array([8 / 7, 3 / 7])
-    np.testing.assert_almost_equal(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 6 Error")
+    np.testing.assert_allclose(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 6 Error")
 
     a = np.array(
         [[1, 2],
          [0, 0]]
     )
     b = np.array([1, 0]).transpose()
-    sol = np.array([1, 0])
-    np.testing.assert_almost_equal(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 7 Error")
+    sol = np.array([1, 0]).transpose()
+    np.testing.assert_allclose(direct_methods.back_substitution(a, b), sol, err_msg="Back Sub Test 7 Error")
 
     # check error if not upper triangular
     a = np.array(
@@ -95,7 +95,7 @@ def test_regular_gaussian_elimination():
          [0, 1, 0],
          [0, 0, 1]]
     )
-    np.testing.assert_almost_equal(direct_methods.regular_gaussian_elim(a), sol, err_msg="Regular GE Test 1 Fail")
+    np.testing.assert_allclose(direct_methods.regular_gaussian_elim(a), sol, err_msg="Regular GE Test 1 Fail")
 
     a = np.array(
         [[2, 2, 3],
@@ -107,7 +107,7 @@ def test_regular_gaussian_elimination():
          [0, 2, 2.5],
          [0, 0, -0.5]]
     )
-    np.testing.assert_almost_equal(direct_methods.regular_gaussian_elim(a), sol, err_msg="Regular GE Test 2 Fail")
+    np.testing.assert_allclose(direct_methods.regular_gaussian_elim(a), sol, err_msg="Regular GE Test 2 Fail")
 
     a = np.array(
         [[1, 2, 3],
@@ -119,7 +119,7 @@ def test_regular_gaussian_elimination():
          [0, -1, -2],
          [0, 0, 0]]
     )
-    np.testing.assert_almost_equal(direct_methods.regular_gaussian_elim(a), sol, err_msg="Regular GE Test 3 Fail")
+    np.testing.assert_allclose(direct_methods.regular_gaussian_elim(a), sol, err_msg="Regular GE Test 3 Fail")
 
     a = np.array(
         [[1, 2],
@@ -131,7 +131,7 @@ def test_regular_gaussian_elimination():
          [0, 1],
          [0, 0]]
     )
-    np.testing.assert_almost_equal(direct_methods.regular_gaussian_elim(a), sol, err_msg="Regular GE Test 4 Fail")
+    np.testing.assert_allclose(direct_methods.regular_gaussian_elim(a), sol, err_msg="Regular GE Test 4 Fail")
 
     a = np.array(
         [[1, 2, 3, 4],
@@ -143,7 +143,7 @@ def test_regular_gaussian_elimination():
          [0, 1, 1, 1],
          [0, 0, -1, -2]]
     )
-    np.testing.assert_almost_equal(direct_methods.regular_gaussian_elim(a), sol, err_msg="Regular GE Test 5 Fail")
+    np.testing.assert_allclose(direct_methods.regular_gaussian_elim(a), sol, err_msg="Regular GE Test 5 Fail")
 
     # Tests for error with non regular matrix
     a = np.array(
@@ -152,6 +152,7 @@ def test_regular_gaussian_elimination():
          [1, 1, 1]]
     )
     np.testing.assert_raises(ValueError, direct_methods.regular_gaussian_elim, a)
+
 
 def test_complete_gaussian_elimination():
     a = np.array(
@@ -164,7 +165,7 @@ def test_complete_gaussian_elimination():
          [0, 0, -0.5],
          [0, 0, 0]]
     )
-    np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 1 Fail")
+    np.testing.assert_allclose(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 1 Fail")
 
     a = np.array(
         [[1, 2],
@@ -176,7 +177,7 @@ def test_complete_gaussian_elimination():
          [0, 1],
          [0, 0]]
     )
-    np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 2 Fail")
+    np.testing.assert_allclose(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 2 Fail")
 
     a = np.array(
         [[1, 2, 3, 4],
@@ -188,7 +189,7 @@ def test_complete_gaussian_elimination():
          [0, 1, 1, 1],
          [0, 0, -1, -2]]
     )
-    np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 3 Fail")
+    np.testing.assert_allclose(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 3 Fail")
 
     a = np.array(
         [[1, 1, 1],
@@ -200,7 +201,7 @@ def test_complete_gaussian_elimination():
          [0, 1, 2],
          [0, 0, 0]]
     )
-    np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 4 Fail")
+    np.testing.assert_allclose(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 4 Fail")
 
     a = np.array(
         [[1, 1, 1],
@@ -212,7 +213,7 @@ def test_complete_gaussian_elimination():
          [0, 0, 0],
          [0, 0, 0]]
     )
-    np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 5 Fail")
+    np.testing.assert_allclose(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 5 Fail")
 
     a = np.array(
         [[1, 1, 2, 1, 1],
@@ -226,7 +227,8 @@ def test_complete_gaussian_elimination():
          [0, 0, 0, 2, -2],
          [0, 0, 0, 0, 2]]
     )
-    np.testing.assert_almost_equal(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 6 Fail")
+    np.testing.assert_allclose(direct_methods.complete_gaussian_elim(a), sol, err_msg="Complete GE Test 6 Fail")
+
 
 def test_lu_decomposition():
     a = np.array(
@@ -242,8 +244,8 @@ def test_lu_decomposition():
          [0, -0.5]]
     )
     l, u = direct_methods.lu_decomposition(a)
-    np.testing.assert_almost_equal(l, sol_l, err_msg="LU decomposition L test 1 Fail")
-    np.testing.assert_almost_equal(u, sol_u, err_msg="LU decomposition U test 1 Fail")
+    np.testing.assert_allclose(l, sol_l, err_msg="LU decomposition L test 1 Fail")
+    np.testing.assert_allclose(u, sol_u, err_msg="LU decomposition U test 1 Fail")
 
     a = np.array(
         [[5, 3, 6],
@@ -262,8 +264,8 @@ def test_lu_decomposition():
     )
     l, u = direct_methods.lu_decomposition(a)
     # Rounding error causes test to fail if precision is left at default
-    np.testing.assert_almost_equal(l, sol_l, err_msg="LU decomposition L test 2 Fail", decimal=5)
-    np.testing.assert_almost_equal(u, sol_u, err_msg="LU decomposition U test 2 Fail", decimal=5)
+    np.testing.assert_allclose(l, sol_l, err_msg="LU decomposition L test 2 Fail")
+    np.testing.assert_allclose(u, sol_u, err_msg="LU decomposition U test 2 Fail")
 
 
     # Test Error with non-regular matrix
@@ -284,7 +286,6 @@ def test_lu_decomposition():
     np.testing.assert_raises(ValueError, direct_methods.lu_decomposition, a)
 
 
-
 if __name__ == "__main__":
     test_back_substitution()
     print("Back sub passed")
@@ -295,3 +296,4 @@ if __name__ == "__main__":
     test_lu_decomposition()
     print("LU Decomposition passed")
     print("Tests Passed!")
+
