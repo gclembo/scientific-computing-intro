@@ -22,8 +22,8 @@ def back_substitution(upper: np.array, b: np.array) -> np.array:
         raise ValueError("System is not upper triangular")
 
     m = upper.shape[0]
-    augmented = np.column_stack([upper, b]).astype(np.float32)
-    sol = np.array([None] * m)
+    augmented = np.column_stack([upper, b])
+    sol = np.array([None] * m).astype(np.float32)
     for i in range(m - 1, -1, -1):
         total = 0
         for j in range(m - 1, i, -1):
