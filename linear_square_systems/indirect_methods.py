@@ -38,6 +38,13 @@ def iterate_matrix(input_matrix: np.array, b: np.array, x0: np.array = None, thr
     return x1
 
 
+def is_diagonally_dominent(input_matrix: np.array) -> bool:
+    for i in range(input_matrix.shape[0]):
+        if 2 * abs(input_matrix[i][i]) <= sum(abs(input_matrix[i])):
+            return False
+    return True
+
+
 def conclude(input_matrix: np.array, b: np.array, final: np.array) -> None:
     """
     Given a matrix representing the system that was attempted to be solved, a b vector representing
@@ -180,6 +187,7 @@ def sor_iteration(input_matrix: np.array, b: np.array, x0: np.array = None, thre
     return final
 
 
-a = np.array([[2, 1], [1, 2]])
+a = np.array([[2, 0], [1, 2]])
 bb = np.array([6, 6]).transpose()
 print(sor_iteration(a, bb))
+print(is_diagonally_dominent(a))
