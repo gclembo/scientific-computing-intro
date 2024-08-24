@@ -29,7 +29,7 @@ def iterate_matrix(input_matrix: np.array, b: np.array, x0: np.array = None, thr
         dist = np.linalg.norm(x1 - x0)
         iteration += 1
 
-    if iteration <= steps:
+    if iteration < steps:
         print("Iteration stopped after successive solutions were closer than " + str(threshold))
         print("This took " + str(iteration) + " steps")
     else:
@@ -38,7 +38,12 @@ def iterate_matrix(input_matrix: np.array, b: np.array, x0: np.array = None, thr
     return x1
 
 
-def is_diagonally_dominent(input_matrix: np.array) -> bool:
+def is_diagonally_dominant(input_matrix: np.array) -> bool:
+    """
+    Given a matrix, returns if the matrix is strictly diagonally dominant.
+    :param input_matrix: Matrix to evaluate.
+    :return: If given matrix is strictly diagonally dominant.
+    """
     for i in range(input_matrix.shape[0]):
         if 2 * abs(input_matrix[i][i]) <= sum(abs(input_matrix[i])):
             return False
@@ -185,9 +190,3 @@ def sor_iteration(input_matrix: np.array, b: np.array, x0: np.array = None, thre
     final = iterate_matrix(iter_mat, c, x0=x0, threshold=threshold, steps=steps)
     conclude(input_matrix, b, final)
     return final
-
-
-a = np.array([[2, 0], [1, 2]])
-bb = np.array([6, 6]).transpose()
-print(sor_iteration(a, bb))
-print(is_diagonally_dominent(a))
