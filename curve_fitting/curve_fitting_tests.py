@@ -1,6 +1,7 @@
 import numpy as np
 import curve_fitting
 
+
 def poly_fit_tests():
     x = [0, 1, 2, 3]
     y = [0, 2, 3, 5]
@@ -15,6 +16,7 @@ def poly_fit_tests():
     y = [-1, 2, 5, 9, 20]
     sol = np.array([-0.408940808587034, 3.507190767281546, -0.760158857355591, 0.080171856705389])
     np.testing.assert_allclose(curve_fitting.poly_fit(x, y, 3), sol, err_msg="Poly Fit Test 3")
+
 
 def func_fit_tests():
     x = [0, np.pi / 4, np.pi / 2, 3 * np.pi / 4, np.pi]
@@ -31,7 +33,7 @@ def func_fit_tests():
     x = [1, 5, 9, 15, 22]
     y = [20, 12, 8, 11, 23]
     sol = np.array([20.4937691, 0.0500474, -7.2152122])
-    np.testing.assert_allclose(curve_fitting.func_fit(x, y, [lambda a: a**2, np.log]), sol,
+    np.testing.assert_allclose(curve_fitting.func_fit(x, y, [lambda a: a ** 2, np.log]), sol,
                                rtol=1e-06, err_msg="Function Fit Test 3")
 
 
@@ -41,4 +43,3 @@ if __name__ == '__main__':
     func_fit_tests()
     print("Function Fit Tests Passed")
     print("Tests Passed!")
-    
