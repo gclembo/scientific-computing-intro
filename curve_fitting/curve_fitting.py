@@ -1,6 +1,18 @@
 import numpy as np
 
 
+def least_squares_sol(a: np.array, b: np.array) -> np.array:
+    """
+    Given a matrix a and a vector b, returns the least squares solution to ax = b.
+    :param a: Coefficient matrix.
+    :param b: Dependent variable values.
+    :return: Least squares solution x to ax = b.
+    """
+    normal_mat = np.matmul(a.transpose(), a)
+    normal_b = np.matmul(a.transpose(), b)
+    return np.linalg.solve(normal_mat, normal_b)
+
+
 def poly_fit(x: np.array or list[float], y: np.array or list[float], n: int) -> np.array:
     """
     Given a vector of x values, a vector of y values, and an integer n, returns the
@@ -14,10 +26,7 @@ def poly_fit(x: np.array or list[float], y: np.array or list[float], n: int) -> 
     for i in range(len(x)):
         for j in range(n + 1):
             vandermonde_mat[i][j] = x[i] ** j
-
-    normal_mat = np.matmul(vandermonde_mat.transpose(), vandermonde_mat)
-    normal_y = np.matmul(vandermonde_mat.transpose(), y)
-    return np.linalg.solve(normal_mat, normal_y)
+    return least_squares_sol(vandermonde_mat, y)
 
 
 def func_fit(x: np.array or list[float], y: np.array or list[float],
@@ -36,7 +45,4 @@ def func_fit(x: np.array or list[float], y: np.array or list[float],
     for i in range(len(x)):
         for j in range(len(functions)):
             func_val_mat[i][j + 1] = functions[j](x[i])
-
-    normal_mat = np.matmul(func_val_mat.transpose(), func_val_mat)
-    normal_y = np.matmul(func_val_mat.transpose(), y)
-    return np.linalg.solve(normal_mat, normal_y)
+    return least_squares_sol(func_val_mat, y)
