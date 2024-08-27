@@ -255,18 +255,17 @@ def test_lu_decomposition():
     sol_l = np.array(
         [[1, 0, 0],
          [1, 1, 0],
-         [2/5, 24/5, 1]]
+         [2 / 5, 24 / 5, 1]]
     )
     sol_u = np.array(
         [[5, 3, 6],
          [0, 1, -4],
-         [0, 0, 104/5]]
+         [0, 0, 104 / 5]]
     )
     l, u = direct_methods.lu_decomposition(a)
     # Rounding error causes test to fail if precision is left at default
     np.testing.assert_allclose(l, sol_l, err_msg="LU decomposition L test 2 Fail")
     np.testing.assert_allclose(u, sol_u, err_msg="LU decomposition U test 2 Fail")
-
 
     # Test Error with non-regular matrix
     a = np.array(
@@ -296,4 +295,3 @@ if __name__ == "__main__":
     test_lu_decomposition()
     print("LU Decomposition passed")
     print("Tests Passed!")
-

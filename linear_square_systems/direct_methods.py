@@ -61,6 +61,7 @@ def regular_gaussian_elim(input_matrix: np.array) -> np.array:
             reduced[j] = reduced[j] - (coef * reduced[i].astype(np.float32))
     return reduced
 
+
 def complete_gaussian_elim(input_matrix: np.array) -> np.array:
     """
     Given a matrix, performs complete Gaussian elimination and returns reduced matrix.

@@ -73,11 +73,12 @@ def gauss_seidel_iteration_tests():
     a = np.array([[2, 1], [1, 2]])
     b = np.array([6, 6]).transpose()
     np.testing.assert_allclose(indirect_methods.gauss_seidel_iteration(a, b, steps=1),
-                               np.array([3, 3/2]).transpose(), err_msg="Gauss Seidel Test 1a")
+                               np.array([3, 3 / 2]).transpose(), err_msg="Gauss Seidel Test 1a")
     np.testing.assert_allclose(indirect_methods.gauss_seidel_iteration(a, b, steps=3),
-                               np.array([66/32, 63/32]).transpose(), err_msg="Gauss Seidel Test 1b")
+                               np.array([66 / 32, 63 / 32]).transpose(), err_msg="Gauss Seidel Test 1b")
     np.testing.assert_allclose(indirect_methods.gauss_seidel_iteration(a, b, steps=5),
-                               np.array([1026/512, 1023/512]).transpose(), err_msg="Gauss Seidel Test 1c")
+                               np.array([1026 / 512, 1023 / 512]).transpose(), err_msg="Gauss Seidel Test 1c")
+
 
 def sor_iteration_tests():
     a = np.array([[2, 1], [1, 2]])
