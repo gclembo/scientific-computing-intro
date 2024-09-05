@@ -15,6 +15,16 @@ def left_hand_sum_tests():
         0.6668,
         err_msg="Left Hand Sum Test 2 Fail"
     )
+    np.testing.assert_raises(
+        ValueError,
+        numerical_integration.simpson_rule_sum,
+        f, 1, -1, 5
+    )
+    np.testing.assert_raises(
+        ValueError,
+        numerical_integration.simpson_rule_sum,
+        f, -1, 1, -5
+    )
 
 
 def right_hand_sum_tests():
@@ -29,6 +39,16 @@ def right_hand_sum_tests():
         numerical_integration.right_hand_sum(f, -1, 1, 100),
         0.6668,
         err_msg="Right Hand Sum Test 2 Fail"
+    )
+    np.testing.assert_raises(
+        ValueError,
+        numerical_integration.simpson_rule_sum,
+        f, 1, -1, 5
+    )
+    np.testing.assert_raises(
+        ValueError,
+        numerical_integration.simpson_rule_sum,
+        f, -1, 1, -5
     )
 
 
@@ -45,6 +65,16 @@ def midpoint_sum_tests():
         0.6666,
         err_msg="Midpoint Sum Test 2 Fail"
     )
+    np.testing.assert_raises(
+        ValueError,
+        numerical_integration.simpson_rule_sum,
+        f, 1, -1, 5
+    )
+    np.testing.assert_raises(
+        ValueError,
+        numerical_integration.simpson_rule_sum,
+        f, -1, 1, -5
+    )
 
 
 def trapezoid_sum_tests():
@@ -60,6 +90,16 @@ def trapezoid_sum_tests():
         0.6668,
         err_msg="Trapezoid Sum Test 2 Fail"
     )
+    np.testing.assert_raises(
+        ValueError,
+        numerical_integration.simpson_rule_sum,
+        f, 1, -1, 5
+    )
+    np.testing.assert_raises(
+        ValueError,
+        numerical_integration.simpson_rule_sum,
+        f, -1, 1, -5
+    )
 
 
 def simpson_rule_sum_tests():
@@ -72,8 +112,18 @@ def simpson_rule_sum_tests():
     )
     np.testing.assert_almost_equal(
         numerical_integration.simpson_rule_sum(f, -1, 1, 100),
-        0.6667,
+        2 / 3,
         err_msg="Simpson\'s Rule Test 2 Fail"
+    )
+    np.testing.assert_raises(
+        ValueError,
+        numerical_integration.simpson_rule_sum,
+        f, 1, -1, 5
+    )
+    np.testing.assert_raises(
+        ValueError,
+        numerical_integration.simpson_rule_sum,
+        f, -1, 1, -5
     )
     np.testing.assert_raises(
         ValueError,
