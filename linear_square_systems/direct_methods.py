@@ -3,16 +3,27 @@ import numpy as np
 
 def back_substitution(upper: np.array, b: np.array) -> np.array:
     """
-    Given an upper triangular matrix a vector to augment to solve the system, returns the
-    solution vector. If a free variable is encountered, 0 is the value used.
+    Given an upper triangular matrix, a vector of dependent values to solve the system, returns the
+    solution vector for the system. If a free variable is encountered, 0 is the value used.
 
-    :param upper: Square upper triangular matrix for a linear system.
-    :param b: vector to augment and use for solving the system.
-    :return: solution vector to system
+    Parameters
+    ----------
+    upper : np.array
+        Square upper triangular matrix for a linear system.
+    b : np.array
+        Vector of dependent values to solve the system.
 
-    :raises ValueError: If the given upper triangular matrix is not square, if the upper triangular
-    matrix and the vector to augment have a different number of rows, if the given upper triangular
-    matrix is not upper triangular, or if there are no solutions to the system.
+    Returns
+    -------
+    np.array
+        Solution vector for the system.
+
+    Raises
+    ------
+    ValueError
+        If the given upper triangular matrix is not square, if the upper
+        triangular matrix and the vector of dependent values have a different number of rows,
+        if the given matrix is not upper triangular, or if there are no solutions to the system.
     """
     if upper.shape[0] != upper.shape[1]:
         raise ValueError("System is not square")
@@ -41,14 +52,24 @@ def back_substitution(upper: np.array, b: np.array) -> np.array:
     return sol.transpose()
 
 
-# Given a regular matrix, performs regular gaussian elimination. Raises ValueError
-#  if given matrix is not regular
 def regular_gaussian_elim(input_matrix: np.array) -> np.array:
     """
     Given a regular matrix, performs regular gaussian elimination and returns the reduced matrix.
-    :param input_matrix: A regular matrix to reduce using regular gaussian elimination.
-    :return: Reduced matrix
-    :raises ValueError: If the given matrix is not regular
+
+    Parameters
+    ----------
+    input_matrix : np.array
+        A regular matrix to reduce using regular gaussian elimination.
+
+    Returns
+    -------
+    np.array
+        Reduced matrix.
+
+    Raises
+    ------
+    ValueError
+        If the given matrix is not regular.
     """
     m = input_matrix.shape[0]
     reduced = input_matrix.astype(np.float32)
@@ -65,8 +86,16 @@ def regular_gaussian_elim(input_matrix: np.array) -> np.array:
 def complete_gaussian_elim(input_matrix: np.array) -> np.array:
     """
     Given a matrix, performs complete Gaussian elimination and returns reduced matrix.
-    :param input_matrix: Matrix to reduce with complete Gaussian elimination.
-    :return: Reduced matrix.
+
+    Parameters
+    ----------
+    input_matrix : np.array
+        Matrix to reduce with complete Gaussian elimination.
+
+    Returns
+    -------
+    np.array
+        Reduced matrix.
     """
     m, n = input_matrix.shape
     reduced = input_matrix.astype(np.float32)
@@ -90,27 +119,37 @@ def complete_gaussian_elim(input_matrix: np.array) -> np.array:
     return reduced
 
 
-# Given a regular square matrix, decomposes the matrix into lower and upper
-#  triangular matrices and returns the lower and upper matrices.
 def lu_decomposition(input_matrix: np.array) -> np.array:
     """
     Given a regular square matrix, decomposes the matrix into lower and upper triangular matrices
     and returns these matrices.
-    :param input_matrix: Regular matrix to decompose.
-    :returns: lower and upper matrices decomposed from the input matrix.
-    :raises ValueError: If the given matrix is not square or if it is not regular.
+
+    Parameters
+    ----------
+    input_matrix : np.array
+        Regular matrix to decompose.
+
+    Returns
+    -------
+    np.array
+        Lower and upper matrices decomposed from the input matrix.
+
+    Raises
+    ------
+    ValueError
+        If the given matrix is not square or if it is not regular.
     """
     if input_matrix.shape[0] != input_matrix.shape[1]:
         raise ValueError("Given matrix is not square")
 
     m = input_matrix.shape[0]
-    l = np.eye(m)
-    u = input_matrix.astype(np.float32)
+    lower = np.eye(m)
+    upper = input_matrix.astype(np.float32)
     for i in range(m - 1):
-        if u[i][i] == 0:
+        if upper[i][i] == 0:
             raise ValueError("Given matrix is not regular")
         for j in range(i + 1, m):
-            coef = u[j][i] / u[i][i]
-            l[j][i] = coef
-            u[j] = u[j] - coef * u[i]
-    return l, u
+            coef = upper[j][i] / upper[i][i]
+            lower[j][i] = coef
+            upper[j] = upper[j] - coef * upper[i]
+    return lower, upper

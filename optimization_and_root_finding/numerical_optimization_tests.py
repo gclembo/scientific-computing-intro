@@ -3,22 +3,26 @@ import numpy as np
 
 
 def three_point_search_tests():
+    """
+    Tests three point equal interval search function.
+    """
+
     def f(x): return (x - 1) ** 2
 
     x_min = -8
     x_max = 8
     np.testing.assert_almost_equal(
-        numerical_optimization.three_point_search(f, x_min, x_max, steps=1),
+        numerical_optimization.three_point_search(f, x_min, x_max, iterations=1),
         0,
         err_msg="Three Point Interval Search Test 1 Fail"
     )
     np.testing.assert_almost_equal(
-        numerical_optimization.three_point_search(f, x_min, x_max, steps=2),
+        numerical_optimization.three_point_search(f, x_min, x_max, iterations=2),
         1,
         err_msg="Three Point Interval Search Test 2 Fail"
     )
     np.testing.assert_almost_equal(
-        numerical_optimization.three_point_search(f, x_min, x_max, steps=3),
+        numerical_optimization.three_point_search(f, x_min, x_max, iterations=3),
         1,
         err_msg="Three Point Interval Search Test 3 Fail"
     )
@@ -40,6 +44,10 @@ def three_point_search_tests():
 
 
 def successive_parabolic_interpolation_tests():
+    """
+    Tests successive parabolic interpolation function.
+    """
+
     def f(x): return 1 - x + x ** 3
 
     samples = np.array([0.5, 1, 1.5])
@@ -51,27 +59,31 @@ def successive_parabolic_interpolation_tests():
 
 
 def gradient_descent_tests():
+    """
+    Tests gradient descent function.
+    """
+
     def df(x): return np.array([2 * x[0] - 2])
 
     x_0 = np.array([0])
     gamma = 0.25
     np.testing.assert_almost_equal(
-        numerical_optimization.gradient_descent(df, x_0, gamma, steps=1),
+        numerical_optimization.gradient_descent(df, x_0, gamma, iterations=1),
         0.5,
         err_msg="Gradient Descent Test 1 Fail"
     )
     np.testing.assert_almost_equal(
-        numerical_optimization.gradient_descent(df, x_0, gamma, steps=2),
+        numerical_optimization.gradient_descent(df, x_0, gamma, iterations=2),
         0.75,
         err_msg="Gradient Descent Test 2 Fail"
     )
     np.testing.assert_almost_equal(
-        numerical_optimization.gradient_descent(df, x_0, gamma, steps=3),
+        numerical_optimization.gradient_descent(df, x_0, gamma, iterations=3),
         0.875,
         err_msg="Gradient Descent Test 3 Fail"
     )
     np.testing.assert_almost_equal(
-        numerical_optimization.gradient_descent(df, x_0, gamma, steps=4),
+        numerical_optimization.gradient_descent(df, x_0, gamma, iterations=4),
         0.9375,
         err_msg="Gradient Descent Test 4 Fail"
     )
@@ -81,26 +93,26 @@ def gradient_descent_tests():
         err_msg="Gradient Descent Test 5 Fail"
     )
 
-    def df(x): return (2 * x[0], 2 * (x[1] - 1))
+    def df(x): return 2 * x[0], 2 * (x[1] - 1)
 
     x_0 = np.array([0, 0])
     gamma = 0.25
     np.testing.assert_almost_equal(
-        numerical_optimization.gradient_descent(df, x_0, gamma, steps=1),
+        numerical_optimization.gradient_descent(df, x_0, gamma, iterations=1),
         np.array([0, 0.5]),
         err_msg="Gradient Descent Test 6 Fail"
     )
     np.testing.assert_almost_equal(
-        numerical_optimization.gradient_descent(df, x_0, gamma, steps=2),
+        numerical_optimization.gradient_descent(df, x_0, gamma, iterations=2),
         np.array([0, 0.75])
     )
     np.testing.assert_almost_equal(
-        numerical_optimization.gradient_descent(df, x_0, gamma, steps=3),
+        numerical_optimization.gradient_descent(df, x_0, gamma, iterations=3),
         np.array([0, 0.875]),
         err_msg="Gradient Descent Test 7 Fail"
     )
     np.testing.assert_almost_equal(
-        numerical_optimization.gradient_descent(df, x_0, gamma, steps=4),
+        numerical_optimization.gradient_descent(df, x_0, gamma, iterations=4),
         np.array([0, 0.9375]),
         err_msg="Gradient Descent Test 8 Fail"
     )
@@ -116,11 +128,11 @@ def gradient_descent_tests():
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     three_point_search_tests()
-    print("Three Point Search Passed")
+    print("Three Point Search Tests Passed")
     successive_parabolic_interpolation_tests()
-    print("SPI Passed")
+    print("SPI Tests Passed")
     gradient_descent_tests()
-    print("Gradient Descent Passed")
+    print("Gradient Descent Tests Passed")
     print("Tests Passed")

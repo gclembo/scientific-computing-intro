@@ -4,7 +4,7 @@ import initial_value_problems
 
 def forward_approximation_tests():
     """
-    Tests forward difference approximation function
+    Tests forward difference approximation function.
     """
 
     def f(x): return x ** 2
@@ -28,7 +28,7 @@ def forward_approximation_tests():
 
 def backward_approximation_tests():
     """
-    Tests backward difference approximation function
+    Tests backward difference approximation function.
     """
 
     def f(x): return x ** 2
@@ -52,7 +52,7 @@ def backward_approximation_tests():
 
 def central_approximation_tests():
     """
-    Tests central difference approximation function
+    Tests central difference approximation function.
     """
 
     def f(x): return x ** 2
@@ -94,7 +94,7 @@ def central_approximation_tests():
 
 def forward_euler_tests():
     """
-    Tests forward Euler IVP function
+    Tests forward Euler IVP function.
     """
 
     def dy(t, y): return y + t
@@ -134,7 +134,7 @@ def forward_euler_tests():
 
 def backward_euler_tests():
     """
-    Tests backward Euler IVP function
+    Tests backward Euler IVP function.
     """
 
     def dy(t, y): return y + t
@@ -176,7 +176,7 @@ def backward_euler_tests():
 
 def trapezoid_method_tests():
     """
-    Tests trapezoid method IVP function
+    Tests trapezoid method IVP function.
     """
 
     def dy(t, y): return y + t
@@ -218,7 +218,7 @@ def trapezoid_method_tests():
 
 def rk4_tests():
     """
-    Tests Runge-Kutta 4 IVP function
+    Tests Runge-Kutta 4 IVP function.
     """
 
     def dy(t, y): return y * t + 1

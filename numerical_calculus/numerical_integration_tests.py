@@ -3,6 +3,10 @@ import numerical_integration
 
 
 def left_hand_sum_tests():
+    """
+    Tests left hand Riemann sum function.
+    """
+
     def f(x): return x ** 2
 
     np.testing.assert_almost_equal(
@@ -28,6 +32,10 @@ def left_hand_sum_tests():
 
 
 def right_hand_sum_tests():
+    """
+    Tests right hand Riemann sum function.
+    """
+
     def f(x): return x ** 2
 
     np.testing.assert_almost_equal(
@@ -53,6 +61,10 @@ def right_hand_sum_tests():
 
 
 def midpoint_sum_tests():
+    """
+    Tests midpoint Riemann sum function.
+    """
+
     def f(x): return x ** 2
 
     np.testing.assert_almost_equal(
@@ -78,6 +90,10 @@ def midpoint_sum_tests():
 
 
 def trapezoid_sum_tests():
+    """
+    Tests trapezoid sum function.
+    """
+
     def f(x): return x ** 2
 
     np.testing.assert_almost_equal(
@@ -103,6 +119,10 @@ def trapezoid_sum_tests():
 
 
 def simpson_rule_sum_tests():
+    """
+    Tests Simpson's rule sum function
+    """
+
     def f(x): return x ** 2
 
     np.testing.assert_almost_equal(
